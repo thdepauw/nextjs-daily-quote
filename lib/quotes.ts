@@ -304,11 +304,47 @@ const quotes: Quote[] = [
   { text: "Nothing is impossible, the word itself says, 'I'm possible!'", author: "Audrey Hepburn" },
   { text: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
   { text: "If you can dream it, you can achieve it.", author: "Zig Ziglar" },
+  { text: "I would rather die of passion than of boredom.", author: "Vincent van Gogh" },
+  { text: "A truly rich man is one whose children run into his arms when his hands are empty.", author: "Unknown" },
+  { text: "It is not what you do for your children, but what you have taught them to do for themselves, that will make them successful human beings.", author: "Ann Landers" },
+  { text: "If you want your children to turn out well, spend twice as much time with them, and half as much money.", author: "Abigail Van Buren" },
+  { text: "Build your own dreams, or someone else will hire you to build theirs.", author: "Farrah Gray" },
+  { text: "The battles that count aren't the ones for gold medals. The struggles within yourself—that's where it's at.", author: "Jesse Owens" },
+  { text: "Education costs money. But then so does ignorance.", author: "Sir Claus Moser" },
+  { text: "I have learned over the years that when one's mind is made up, this diminishes fear.", author: "Rosa Parks" },
+  { text: "It does not matter how slowly you go as long as you do not stop.", author: "Confucius" },
+  { text: "If you look at what you have in life, you'll always have more. If you look at what you don't have in life, you'll never have enough.", author: "Oprah Winfrey" },
+  { text: "Remember that not getting what you want is sometimes a wonderful stroke of luck.", author: "Dalai Lama" },
+  { text: "You can’t use up creativity. The more you use, the more you have.", author: "Maya Angelou" },
+  { text: "Dream big and dare to fail.", author: "Norman Vaughan" },
+  { text: "Our lives begin to end the day we become silent about things that matter.", author: "Martin Luther King Jr." },
+  { text: "Do what you can, where you are, with what you have.", author: "Teddy Roosevelt" },
+  { text: "If you do what you’ve always done, you’ll get what you’ve always gotten.", author: "Tony Robbins" },
+  { text: "Dreaming, after all, is a form of planning.", author: "Gloria Steinem" },
+  { text: "It's your place in the world; it's your life. Go on and do all you can with it, and make it the life you want to live.", author: "Mae Jemison" },
+  { text: "You may be disappointed if you fail, but you are doomed if you don't try.", author: "Beverly Sills" },
+  { text: "Remember no one can make you feel inferior without your consent.", author: "Eleanor Roosevelt" },
+  { text: "Life is what we make it, always has been, always will be.", author: "Grandma Moses" },
+  { text: "The question isn’t who is going to let me; it’s who is going to stop me.", author: "Ayn Rand" },
+  { text: "When everything seems to be going against you, remember that the airplane takes off against the wind, not with it.", author: "Henry Ford" },
+  { text: "It’s not the years in your life that count. It’s the life in your years.", author: "Abraham Lincoln" },
+  { text: "Change your thoughts and you change your world.", author: "Norman Vincent Peale" },
+  { text: "Either write something worth reading or do something worth writing.", author: "Benjamin Franklin" },
+  { text: "Nothing is impossible, the word itself says, 'I’m possible!'", author: "Audrey Hepburn" },
+  { text: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
+  { text: "If you can dream it, you can achieve it.", author: "Zig Ziglar" }  
 ]
 
 export async function getQuoteOfTheDay(): Promise<Quote> {
   // Use the current date to select a quote
-  const today = new Date()
-  const index = (today.getFullYear() + today.getMonth() + today.getDate()) % quotes.length
-  return quotes[index]
+  const today = new Date();
+  const start = new Date(today.getFullYear(), 0, 0);
+  const diff = today.getTime() - start.getTime();
+  const oneDay = 1000 * 60 * 60 * 24;
+  const dayOfYear = Math.floor(diff / oneDay);
+
+  // Ensure the dayOfYear is within the bounds of the quotes array
+  const quoteIndex = dayOfYear % quotes.length;
+
+  return quotes[quoteIndex];
 }
